@@ -213,7 +213,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Valores v = new Valores(this,true);
+        Valores v = new Valores(this, true);
         v.setLocationRelativeTo(this);
         v.setVisible(true);
         i.comprar(v.idValor(), v.cantidadeAccions());
@@ -221,7 +221,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Valores v = new Valores(this,true);
+        Valores v = new Valores(this, true);
         v.setLocationRelativeTo(this);
         v.nomeBoton("Vender");
         v.setVisible(true);
@@ -230,6 +230,17 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+
+        try {         
+            PreparedStatement statement1 = BolsaEnBD.getCon().prepareStatement("SELECT * FROM usuario_valor INNER JOIN valores on usuario_valor.id_valor=valores.id WHERE id_usuario=?");
+            statement1.setInt(1, i.getId());
+            ResultSet rs = statement1.executeQuery();  
+            while (rs.next()) {
+                jTextArea1.append("Posue " + rs.getInt("cantidade") + " accions de " + rs.getString("nome") + "\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InversorEnBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
         jTextArea1.append("A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
     }//GEN-LAST:event_jButton6ActionPerformed
 
