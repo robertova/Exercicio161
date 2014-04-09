@@ -19,7 +19,7 @@ import java.util.logging.Logger;
  */
 
 
-class BolsaEnBD implements Bolsa {
+class BolsaEnBD implements Bolsa, Resumible {
     private static Connection con;
 
     public static Connection getCon() {
@@ -86,5 +86,10 @@ class BolsaEnBD implements Bolsa {
             Logger.getLogger(BolsaEnBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return x;
+    }
+    
+    @Override
+    public String resumir() {
+        return String.valueOf(this.con);
     }
 }
