@@ -13,13 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-
 /**
  *
  * @author ROBERTOVA
  */
-
-
 
 
 class BolsaEnBD implements Bolsa {
@@ -46,8 +43,9 @@ class BolsaEnBD implements Bolsa {
     public boolean actualizar() {
         boolean x = false;
         try {
-            PreparedStatement statement = getCon().prepareStatement("SELECT * FROM valores");
-            ResultSet rs = statement.executeQuery();
+            PreparedStatement statement = getCon().prepareStatement("UPDATE valores SET prezo=prezo*?");
+            statement.setDouble(1, 1 + Math.random()*10/100 - Math.random()*10/100);
+            statement.execute();
             x = true;
         } catch (SQLException ex) {
             Logger.getLogger(BolsaEnBD.class.getName()).log(Level.SEVERE, null, ex);
