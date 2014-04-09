@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 
 
-class InversorEnBD implements Inversor {
+class InversorEnBD implements Inversor,Resumible {
 
     private int id;
     private float capital;
@@ -139,6 +139,11 @@ class InversorEnBD implements Inversor {
         return x;
     }
 
+    @Override
+    public String resumir() {
+        return String.valueOf(this.id) + " " + this.capital;
+    }
+    
     public int getId() {
         return id;
     }
