@@ -148,7 +148,7 @@ public class Principal extends javax.swing.JFrame {
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     if (b.actualizar()) {
         try {
-            PreparedStatement statement = BolsaEnBD.getCon().prepareStatement("SELECT * FROM valores");
+            PreparedStatement statement = b.getCon().prepareStatement("SELECT * FROM valores");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
             jTextArea1.append(rs.getInt("id") + " " + rs.getString("nome") + " " + rs.getFloat("prezo") + "\n");
@@ -166,12 +166,12 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     if (b.novo(user.getLogin(), user.getPass(), user.getPosicion())) {
         jTextArea1.append("Usuario Creado Correctamente\n");
         try {
-            PreparedStatement statement = BolsaEnBD.getCon().prepareStatement("SELECT id,login,capital FROM USUARIOS WHERE login=? AND clave=?");
+            PreparedStatement statement = b.getCon().prepareStatement("SELECT id,login,capital FROM USUARIOS WHERE login=? AND clave=?");
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPass());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"));
+                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"),b);
                 jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + rs.getString("login") + " Capital: " + i.getCapital() + "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
                 jButton4.setEnabled(true);
                 jButton5.setEnabled(true);
@@ -193,12 +193,12 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     user.setVisible(true);
     if (b.identificar(user.getLogin(), user.getPass())) {
         try {
-            PreparedStatement statement = BolsaEnBD.getCon().prepareStatement("SELECT id,login,capital FROM USUARIOS WHERE login=? AND clave=?");
+            PreparedStatement statement = b.getCon().prepareStatement("SELECT id,login,capital FROM USUARIOS WHERE login=? AND clave=?");
             statement.setString(1, user.getLogin());
             statement.setString(2, user.getPass());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"));
+                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"),b);
                 jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + rs.getString("login") + " Capital: " + i.getCapital() +  "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
                 jButton4.setEnabled(true);
                 jButton5.setEnabled(true);
@@ -213,7 +213,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Valores v = new Valores(this, true);
+        Valores v = new Valores(this, true,b);
         v.setLocationRelativeTo(this);
         v.setVisible(true);
         i.comprar(v.idValor(), v.cantidadeAccions());
@@ -221,7 +221,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        Valores v = new Valores(this, true);
+        Valores v = new Valores(this, true,b);
         v.setLocationRelativeTo(this);
         v.nomeBoton("Vender");
         v.setVisible(true);
@@ -232,7 +232,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         try {         
-            PreparedStatement statement1 = BolsaEnBD.getCon().prepareStatement("SELECT * FROM usuario_valor INNER JOIN valores on usuario_valor.id_valor=valores.id WHERE id_usuario=?");
+            PreparedStatement statement1 = b.getCon().prepareStatement("SELECT * FROM usuario_valor INNER JOIN valores on usuario_valor.id_valor=valores.id WHERE id_usuario=?");
             statement1.setInt(1, i.getId());
             ResultSet rs = statement1.executeQuery();  
             while (rs.next()) {

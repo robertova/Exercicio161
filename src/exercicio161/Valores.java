@@ -19,21 +19,23 @@ import javax.swing.DefaultListModel;
  */
 public class Valores extends javax.swing.JDialog {
     private DefaultListModel modelo = new DefaultListModel();
+    private BolsaEnBD b;
     
     /**
      * Creates new form Valores
      * @param parent
      * @param modal
      */
-    public Valores(java.awt.Frame parent, boolean modal) {
+    public Valores(java.awt.Frame parent, boolean modal,BolsaEnBD b) {
         super(parent, modal);
+        this.b = b;
         initComponents();
         encher();
     }
     
     private void encher() {
         try {
-            PreparedStatement statement = BolsaEnBD.getCon().prepareStatement("SELECT * FROM valores");
+            PreparedStatement statement = b.getCon().prepareStatement("SELECT * FROM valores");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Valor v;
