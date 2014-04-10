@@ -31,6 +31,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setEnabled(false);
         jButton5.setEnabled(false);
         jButton6.setEnabled(false);
+        b.setBd("jdbc:mysql://localhost:3307/bolsa","root","root");
         if (b.iniciar()) {
             jTextArea1.append("Conexion con BD Correcta\n");
             jTextArea1.append(b.resumir());

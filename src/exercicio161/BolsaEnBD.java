@@ -21,17 +21,25 @@ import java.util.logging.Logger;
 
 class BolsaEnBD implements Bolsa, Resumible {
     private Connection con;
+    private String bd="";
+    private String user="";
+    private String pass="";
 
     public Connection getCon() {
         return con;
     }
     
-    
+    public void setBd(String bd,String user,String pass) {
+        this.bd = bd;
+        this.user = user;
+        this.pass = pass;
+    }
+       
     @Override
     public boolean iniciar() {
         boolean x = false;
         try {          
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3307/bolsa","root","root");
+            con = DriverManager.getConnection(bd,user,pass);
             x = true;
         } catch (SQLException ex) {
             Logger.getLogger(BolsaEnBD.class.getName()).log(Level.SEVERE, null, ex);
@@ -90,19 +98,23 @@ class BolsaEnBD implements Bolsa, Resumible {
     
     @Override
     public String resumir() {
-        String resultado="";
+        String resultado= "Url da bolsa: " + this.bd + "\n";
         try {
             PreparedStatement statement = getCon().prepareStatement("SELECT COUNT(*) AS conta FROM usuarios");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
             resultado += "Numero de usuarios na bolsa: " + rs.getInt("conta")  + "\n";
             }
-            statement = getCon().prepareStatement("SELECT * FROM usuarios INNER JOIN usuario_valor ON usuarios.id=usuario_valor.id_usuario INNER JOIN valores on usuario_valor.id_valor=valores.id");
+            statement = getCon().prepareStatement("SELECT capital FROM usuarios");
             rs = statement.executeQuery();
             float capital=0;
-            float valor=0;
             while (rs.next()) {
                 capital += rs.getFloat("capital");
+            }
+            statement = getCon().prepareStatement("SELECT * FROM usuario_valor INNER JOIN valores ON usuario_valor.id_valor=valores.id");
+            rs = statement.executeQuery();
+            float valor=0;
+            while (rs.next()) {
                 valor += rs.getInt("cantidade") * rs.getFloat("prezo");
             }
             resultado += "Capital total dos usuarios: " + capital + "\n" + "Valor das accions dos usuarios: " + valor + "\n";
