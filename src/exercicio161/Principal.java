@@ -1,13 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /*
  * Principal.java
  *
  * Created on 01-abr-2014, 18:45:23
  */
+
 package exercicio161;
 
 import java.sql.PreparedStatement;
@@ -20,6 +17,7 @@ import java.util.logging.Logger;
  *
  * @author ROBERTOVA
  */
+
 public class Principal extends javax.swing.JFrame {
     BolsaEnBD b = new BolsaEnBD();
     InversorEnBD i;

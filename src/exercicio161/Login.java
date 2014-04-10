@@ -1,19 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/*
- * Login.java
- *
- * Created on 13-mar-2014, 18:06:54
- */
 package exercicio161;
 
 /**
  *
  * @author ROBERTOVA
  */
+
 public class Login extends javax.swing.JDialog {
 
     /** Creates new form Login */

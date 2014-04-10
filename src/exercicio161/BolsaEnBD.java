@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package exercicio161;
 
 import java.sql.Connection;
@@ -12,12 +9,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
  * @author ROBERTOVA
  */
-
 
 class BolsaEnBD implements Bolsa, Resumible {
     private Connection con;
