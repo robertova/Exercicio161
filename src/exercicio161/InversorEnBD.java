@@ -137,7 +137,7 @@ class InversorEnBD implements Inversor, Resumible {
 
     @Override
     public String resumir() {
-        return String.valueOf(this.id) + " " + this.capital;
+        return "Id: " + String.valueOf(this.id) + " Nome: " + this.login + " Capital: " + this.capital;
     }
 
     public int getId() {
