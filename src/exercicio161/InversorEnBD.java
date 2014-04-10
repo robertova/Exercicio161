@@ -1,4 +1,3 @@
-
 package exercicio161;
 
 import java.sql.PreparedStatement;
@@ -11,15 +10,14 @@ import java.util.logging.Logger;
  *
  * @author ROBERTOVA
  */
-
-class InversorEnBD implements Inversor,Resumible {
+class InversorEnBD implements Inversor, Resumible {
 
     private int id;
     private String login;
     private float capital;
     BolsaEnBD b;
 
-    public InversorEnBD(int id, String login, float capital,BolsaEnBD b) {
+    public InversorEnBD(int id, String login, float capital, BolsaEnBD b) {
         this.id = id;
         this.login = login;
         this.capital = capital;
@@ -110,7 +108,7 @@ class InversorEnBD implements Inversor,Resumible {
                             statement2.setInt(2, id);
                             statement2.execute();
                         }
-                    }                 
+                    }
                 }
                 x = true;
             } else {
@@ -124,10 +122,10 @@ class InversorEnBD implements Inversor,Resumible {
     @Override
     public float valorar() {
         float x = 0;
-        try {         
+        try {
             PreparedStatement statement1 = b.getCon().prepareStatement("SELECT * FROM usuario_valor INNER JOIN valores on usuario_valor.id_valor=valores.id WHERE id_usuario=?");
             statement1.setInt(1, this.getId());
-            ResultSet resultado1 = statement1.executeQuery();  
+            ResultSet resultado1 = statement1.executeQuery();
             while (resultado1.next()) {
                 x += resultado1.getInt("cantidade") * resultado1.getFloat("prezo");
             }
@@ -141,7 +139,7 @@ class InversorEnBD implements Inversor,Resumible {
     public String resumir() {
         return String.valueOf(this.id) + " " + this.capital;
     }
-    
+
     public int getId() {
         return id;
     }

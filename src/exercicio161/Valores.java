@@ -1,4 +1,3 @@
-
 package exercicio161;
 
 import java.sql.PreparedStatement;
@@ -12,58 +11,58 @@ import javax.swing.DefaultListModel;
  *
  * @author ROBERTOVA
  */
-
 public class Valores extends javax.swing.JDialog {
+
     private DefaultListModel modelo = new DefaultListModel();
     private BolsaEnBD b;
-    
+
     /**
      * Creates new form Valores
+     *
      * @param parent
      * @param modal
      */
-    public Valores(java.awt.Frame parent, boolean modal,BolsaEnBD b) {
+    public Valores(java.awt.Frame parent, boolean modal, BolsaEnBD b) {
         super(parent, modal);
         this.b = b;
         initComponents();
         encher();
     }
-    
+
     private void encher() {
         try {
             PreparedStatement statement = b.getCon().prepareStatement("SELECT * FROM valores");
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 Valor v;
-                v = new Valor(rs.getInt("id"),rs.getString("nome"),rs.getFloat("prezo"));
+                v = new Valor(rs.getInt("id"), rs.getString("nome"), rs.getFloat("prezo"));
                 modelo.addElement(v);
             }
             jList1.setModel(modelo);
         } catch (SQLException ex) {
             Logger.getLogger(Valores.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
-    
+
     public void nomeBoton(String operacion) {
         jButton1.setText(operacion);
     }
-    
+
     public int idValor() {
         Valor v = (Valor) jList1.getSelectedValue();
-        return (v.getId()) ;
+        return (v.getId());
     }
-    
+
     public String nomeValor() {
         Valor v = (Valor) jList1.getSelectedValue();
-        return (v.getNome()) ;
+        return (v.getNome());
     }
-    
+
     public int cantidadeAccions() {
         return (Integer.parseInt(jTextField1.getText()));
     }
 
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -151,16 +150,17 @@ public class Valores extends javax.swing.JDialog {
 }
 
 class Valor {
+
     private int id;
     private String nome;
     private float prezo;
-    
+
     public Valor(int id, String nome, float prezo) {
         this.id = id;
         this.nome = nome;
         this.prezo = prezo;
     }
-    
+
     @Override
     public String toString() {
         return (this.getId() + " " + this.getNome() + " " + this.getPrezo());
@@ -173,9 +173,9 @@ class Valor {
     public String getNome() {
         return nome;
     }
-    
+
     public float getPrezo() {
         return prezo;
     }
-    
+
 }
