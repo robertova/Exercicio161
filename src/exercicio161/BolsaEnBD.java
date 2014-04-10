@@ -22,7 +22,7 @@ import java.util.logging.Logger;
 class BolsaEnBD implements Bolsa, Resumible {
     private Connection con;
 
-    public  Connection getCon() {
+    public Connection getCon() {
         return con;
     }
     
@@ -90,6 +90,25 @@ class BolsaEnBD implements Bolsa, Resumible {
     
     @Override
     public String resumir() {
-        return String.valueOf(getCon());
+        String resultado="";
+        try {
+            PreparedStatement statement = getCon().prepareStatement("SELECT COUNT(*) AS conta FROM usuarios");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+            resultado += "Numero de usuarios na bolsa: " + rs.getInt("conta")  + "\n";
+            }
+            statement = getCon().prepareStatement("SELECT * FROM usuarios INNER JOIN usuario_valor ON usuarios.id=usuario_valor.id_usuario INNER JOIN valores on usuario_valor.id_valor=valores.id");
+            rs = statement.executeQuery();
+            float capital=0;
+            float valor=0;
+            while (rs.next()) {
+                capital += rs.getFloat("capital");
+                valor += rs.getInt("cantidade") * rs.getFloat("prezo");
+            }
+            resultado += "Capital total dos usuarios: " + capital + "\n" + "Valor das accions dos usuarios: " + valor + "\n";
+        } catch (SQLException ex) {
+            Logger.getLogger(BolsaEnBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return resultado;
     }
 }
