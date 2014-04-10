@@ -171,8 +171,8 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             statement.setString(2, user.getPass());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"),b);
-                jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + rs.getString("login") + " Capital: " + i.getCapital() + "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
+                i = new InversorEnBD(rs.getInt("id"),rs.getString("login"),rs.getFloat("capital"),b);
+                jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + i.getLogin() + " Capital: " + i.getCapital() + "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
                 jButton4.setEnabled(true);
                 jButton5.setEnabled(true);
                 jButton6.setEnabled(true);
@@ -198,8 +198,8 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             statement.setString(2, user.getPass());
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
-                i = new InversorEnBD(rs.getInt("id"),rs.getFloat("capital"),b);
-                jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + rs.getString("login") + " Capital: " + i.getCapital() +  "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
+                i = new InversorEnBD(rs.getInt("id"),rs.getString("login"),rs.getFloat("capital"),b);
+                jTextArea1.append("Esta traballando como o usuario " + i.getId() + " " + i.getLogin() + " Capital: " + i.getCapital() +  "\n" + "A sua posicion actual e de: " + String.valueOf(i.valorar()) + "\n");
                 jButton4.setEnabled(true);
                 jButton5.setEnabled(true);
                 jButton6.setEnabled(true);

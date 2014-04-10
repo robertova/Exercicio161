@@ -15,11 +15,13 @@ import java.util.logging.Logger;
 class InversorEnBD implements Inversor,Resumible {
 
     private int id;
+    private String login;
     private float capital;
     BolsaEnBD b;
 
-    public InversorEnBD(int id, float capital,BolsaEnBD b) {
+    public InversorEnBD(int id, String login, float capital,BolsaEnBD b) {
         this.id = id;
+        this.login = login;
         this.capital = capital;
         this.b = b;
     }
@@ -154,5 +156,13 @@ class InversorEnBD implements Inversor,Resumible {
 
     public void setCapital(float capital) {
         this.capital = capital;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }
