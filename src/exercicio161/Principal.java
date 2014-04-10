@@ -33,6 +33,7 @@ public class Principal extends javax.swing.JFrame {
         jButton6.setEnabled(false);
         if (b.iniciar()) {
             jTextArea1.append("Conexion con BD Correcta\n");
+            jTextArea1.append(b.resumir());
         } else {
             jTextArea1.append("Non hai conexion con BD\n");
         }
